@@ -11,24 +11,31 @@
 
     <style>
         /*
-          "Feature", "Kensington", and "Obviously" are licensed foundry fonts
-          (not hosted on Google Fonts). Add @font-face rules below pointing to
-          your licensed font files to activate them; until then, each stack
-          falls back to Instrument Serif / system fonts.
+          Drop your own font files into the /fonts folder and they'll be
+          picked up automatically. Supported formats: .woff2, .woff, .ttf, .otf.
+          Each rule falls back to a web-safe font if the file isn't present yet.
         */
         @font-face {
+            font-family: 'Script';
+            src: url('fonts/LuxuriousScript-Regular.ttf') format('truetype');
+            font-display: swap;
+        }
+        @font-face {
             font-family: 'Feature';
-            src: local('Feature');
+            src: url('fonts/feature.woff2') format('woff2'),
+                 url('fonts/feature.ttf') format('truetype');
             font-display: swap;
         }
         @font-face {
             font-family: 'Kensington';
-            src: local('Kensington');
+            src: url('fonts/kensington.woff2') format('woff2'),
+                 url('fonts/kensington.ttf') format('truetype');
             font-display: swap;
         }
         @font-face {
             font-family: 'Obviously';
-            src: local('Obviously');
+            src: url('fonts/obviously.woff2') format('woff2'),
+                 url('fonts/obviously.ttf') format('truetype');
             font-display: swap;
         }
 
@@ -38,6 +45,7 @@
             --overlay-yellow: #FFF2C4;
             --brown: #4A2A0D;
             --paper: #FBF9F4;
+            --font-script: 'Script', 'Instrument Serif', cursive;
             --font-display: 'Kensington', 'Instrument Serif', serif;
             --font-heading: 'Feature', 'Instrument Serif', serif;
             --font-body: 'Obviously', 'Manrope', sans-serif;
@@ -399,6 +407,91 @@
             opacity: 1;
         }
 
+        /* ---------- hero ---------- */
+        .hero {
+            position: relative;
+            min-height: 70vh;
+            padding: 10px 0 40px;
+            overflow: hidden;
+        }
+        .hero-title {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            max-width: 100%;
+            padding-left: 0.15em;
+            line-height: 0.95;
+            font-family: var(--font-script);
+            font-weight: 400;
+            text-align: center;
+            overflow-wrap: break-word;
+        }
+        .hero-line {
+            display: block;
+        }
+        .hero-line-1 {
+            margin-left: -34%;
+            font-size: clamp(2.8em, 7.5vw, 5em);
+            color: var(--brown);
+        }
+        .hero-line-2 {
+            margin-top: -0.35em;
+            font-size: clamp(3.2em, 8.5vw, 5.8em);
+            color: #2AA9A9;
+        }
+        .hero-stars {
+            position: relative;
+            z-index: 1;
+            min-height: 260px;
+            margin-top: 24px;
+        }
+        .hero-star {
+            position: absolute;
+            width: 118px;
+            height: 118px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 12px;
+            text-align: center;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            font: inherit;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.72em;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .hero-star:hover,
+        .hero-star:focus-visible {
+            transform: scale(1.08) rotate(-4deg);
+        }
+        .star-yellow { background: var(--yellow); color: var(--brown); }
+        .star-teal   { background: #2AA9A9; color: var(--paper); }
+        .star-brown  { background: var(--brown); color: var(--yellow); }
+        .star-1 { left: 4%;  top: 10px; }
+        .star-2 { left: 18%; top: 150px; }
+        .star-3 { left: 40%; top: 175px; }
+        .star-4 { left: 56%; top: 0; }
+        .star-5 { left: 78%; top: 55px; }
+        @media (max-width: 820px) {
+            .hero-stars {
+                position: static;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 16px;
+                min-height: auto;
+            }
+            .hero-star {
+                position: static;
+            }
+        }
+
         /* ---------- headings & text ---------- */
         h1, h2 {
             font-family: 'Cormorant Garamond', serif;
@@ -678,17 +771,31 @@
         <ul>
             <li><a href="index.html" id="home-link">Home</a></li>
             <li><a href="resume.html">Resume</a></li>
-            <li><a href="resume.html#projects">Projects</a></li>
+            <li><a href="projects.html">Projects</a></li>
             <li>
                 <button id="sidebar-toggle">
                     <span class="btn-text">About Me</span>
                     <img class="btn-avatar" src="logo.png" alt="About Me logo">
                 </button>
             </li>
-            <li><a href="resume.html#clubs">Clubs</a></li>
-            <li><a href="resume.html#work-experience">Work Experience</a></li>
+            <li><a href="clubs.html">Clubs</a></li>
+            <li><a href="work-experience.html">Work Experience</a></li>
         </ul>
     </nav>
+
+    <section class="hero reveal">
+        <h1 class="hero-title">
+            <span class="hero-line hero-line-1">Welcome</span>
+            <span class="hero-line hero-line-2">Everyone!</span>
+        </h1>
+        <div class="hero-stars">
+            <a class="hero-star star-yellow star-1" href="resume.html">Resume</a>
+            <a class="hero-star star-teal star-4" href="work-experience.html">Work Exp.</a>
+            <button class="hero-star star-brown star-5" type="button" id="hero-about-me">About Me</button>
+            <a class="hero-star star-brown star-2" href="projects.html">Projects</a>
+            <a class="hero-star star-yellow star-3" href="clubs.html">Clubs</a>
+        </div>
+    </section>
     </div>
 
     <script>
@@ -729,6 +836,11 @@
         });
         sidebarClose.addEventListener('click', () => {
             document.body.classList.add('sidebar-hidden');
+        });
+
+        const heroAboutMe = document.getElementById('hero-about-me');
+        heroAboutMe.addEventListener('click', () => {
+            document.body.classList.remove('sidebar-hidden');
         });
 
         const exploreButton = document.getElementById('explore-button');
